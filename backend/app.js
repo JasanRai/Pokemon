@@ -4,6 +4,7 @@ import cors from "cors";
 
 const app = express();
 const port = 5001;
+app.use(cors());
 
 app.get("/", (req, res) => {
   axios
@@ -21,6 +22,7 @@ app.get("/", (req, res) => {
           response.data.sprites.other.dream_world.front_default;
         allPokemon.push(updatedPokeData);
       }
+      console.log(allPokemon);
       res.send(allPokemon);
     });
 });
