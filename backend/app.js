@@ -12,17 +12,28 @@ app.get("/", (req, res) => {
     .then(async (response) => {
       const allPokemon = [];
       const pokeData = response.data.results;
+
       for (let i = 0; i < pokeData.length; i++) {
         let updatedPokeData = {};
         updatedPokeData["name"] = pokeData[i].name;
 
         const response = await axios.get(pokeData[i].url);
-        updatedPokeData["types"] = response.data.types;
+        updatedPokeData["types"] = response.data.types.map(
+          (pokeType) => pokeType.type.name
+        );
+
         updatedPokeData["img"] =
           response.data.sprites.other.dream_world.front_default;
+
+        updatedPokeData["id"] = response.data.id;
+
+        updatedPokeData["abilities"] = response.data.abilities.map(
+          (pokeAbility) => pokeAbility.ability.name
+        );
+
         allPokemon.push(updatedPokeData);
       }
-      console.log(allPokemon);
+
       res.send(allPokemon);
     });
 });
