@@ -1,10 +1,19 @@
 import express from "express";
 import axios from "axios";
 import cors from "cors";
+import mongoose from "mongoose";
 
 const app = express();
 const port = 5001;
 app.use(cors());
+
+mongoose.connect(
+  "mongodb+srv://jsonrai:1234@cluster0.4lqdu.mongodb.net/PokemonDB",
+  { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true },
+  () => {
+    console.log("Connected to MONGODB");
+  }
+);
 
 app.get("/", (req, res) => {
   axios

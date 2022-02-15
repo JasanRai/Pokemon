@@ -69,17 +69,25 @@ function Pokemon() {
         </TextField>
       </div>
 
-      <Grid container display={"flex"} justifyContent={"center"}>
+      <Grid container>
         {pokemonData.map((pokemon) => {
           return (
-            <Grid item xs={3} display={"flex"} justifyContent={"center"}>
+            <Grid
+              item
+              xs={3}
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "flex-start",
+              }}
+            >
               <PokemonCard
                 key={pokemon.id}
-                id={pokemon.id}
-                name={pokemon.name}
-                types={pokemon.types}
-                img={pokemon.img}
-                abilities={pokemon.abilities}
+                a={pokemon.id}
+                b={pokemon.name}
+                c={pokemon.types}
+                d={pokemon.img}
+                e={pokemon.abilities}
               />
             </Grid>
           );

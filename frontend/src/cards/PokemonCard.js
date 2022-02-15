@@ -6,9 +6,16 @@ import {
   Collapse,
   Grid,
   IconButton,
+  Tooltip,
   Typography,
 } from "@mui/material";
 import React, { useState } from "react";
+import CircularProgress, {
+  circularProgressClasses,
+} from "@mui/material/CircularProgress";
+import LinearProgress, {
+  linearProgressClasses,
+} from "@mui/material/LinearProgress";
 import Ability from "../components/Ability";
 import TypeTag from "../components/TypeTag";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
@@ -26,16 +33,27 @@ const ExpandMore = styled((props) => {
 }));
 
 function PokemonCard(props) {
-  const typesArray = props.types;
-  const id = props.id;
-  const name = props.name;
-  const abilities = props.abilities;
-  const img = props.img;
+  const typesArray = props.c;
+  const id = props.a;
+  const name = props.b;
+  const abilities = props.e;
+  const img = props.d;
   const [expanded, setExpanded] = useState(false);
+
+  const maleIncidence = Math.floor(Math.random() * 100);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
+
+  const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
+    height: 20,
+    borderRadius: 5,
+    background: "#e078e9",
+    [`&.${linearProgressClasses.bar}`]: {
+      borderRadius: 5,
+    },
+  }));
 
   let color = "";
   let contentColor = "";
@@ -87,6 +105,7 @@ function PokemonCard(props) {
         style={{
           background: `${contentColor}`,
           margin: 5,
+          padding: 5,
           height: "97%",
           borderRadius: 3,
         }}
@@ -159,6 +178,100 @@ function PokemonCard(props) {
               borderRadius: 5,
             }}
           />
+        </Box>
+
+        <Typography
+          style={{
+            display: "flex",
+            marginTop: 2,
+            justifyContent: "center",
+          }}
+        >
+          Gender Ratio :{" "}
+        </Typography>
+        <Box
+          style={{
+            background: "white",
+            marginTop: 2,
+            padding: 10,
+            borderRadius: 10,
+            position: "relative",
+          }}
+        >
+          <Box
+            style={{
+              position: "absolute",
+              left: 0,
+              top: 0,
+              marginTop: 2,
+              padding: 10,
+              borderRadius: 10,
+              display: "flex",
+              justifyContent: "center",
+              width: 260,
+              zIndex: 1000,
+            }}
+          >
+            <Tooltip title="Male">
+              <div
+                style={{
+                  width: `${maleIncidence}%`,
+                  background: "transparent",
+                  color: "transparent",
+                }}
+              >
+                &nbsp; {/* nbsp is html character for  non breaking space */}
+              </div>
+            </Tooltip>
+            <Tooltip title="Female">
+              <div
+                style={{
+                  width: `${100 - maleIncidence}%`,
+                  background: "transparent",
+                  color: "transparent",
+                }}
+              >
+                &nbsp;
+              </div>
+            </Tooltip>
+          </Box>
+          <BorderLinearProgress
+            variant="determinate"
+            value={maleIncidence}
+          ></BorderLinearProgress>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              position: "relative",
+              left: 0,
+              top: 0,
+            }}
+          >
+            {maleIncidence === 0 ? null : (
+              <Typography
+                style={{
+                  width: `${maleIncidence}%`,
+                  display: "flex",
+                  justifyContent: "center",
+                }}
+              >
+                {maleIncidence}%{" "}
+              </Typography>
+            )}
+
+            {100 - maleIncidence === 0 ? null : (
+              <Typography
+                style={{
+                  width: `${100 - maleIncidence}%`,
+                  display: "flex",
+                  justifyContent: "center",
+                }}
+              >
+                {100 - maleIncidence}%
+              </Typography>
+            )}
+          </div>
         </Box>
         <div style={{ borderRadius: 10 }}>
           <h5
