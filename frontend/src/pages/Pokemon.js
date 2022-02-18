@@ -1,9 +1,12 @@
-import { Grid, MenuItem, TextField } from "@mui/material";
+import { Grid, MenuItem, TextField, Button } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import PokemonCard from "../cards/PokemonCard";
 import PokeImage from "../images/firstpokemons.jpg";
+import { NavbarContext } from "../context/NavbarContext";
 
+//From your context pull out the function to change the color variable and use
+// on your button onClicks
 const pokemonStyles = makeStyles({
   header: {
     display: "flex",
@@ -21,9 +24,14 @@ function Pokemon() {
   const classes = pokemonStyles();
   const [pokemonData, setPokemonData] = useState([]);
   const [pokemonTitle, setPokemonTitle] = useState("");
+  const { blueBtnClicked, blackBtnClicked } = useContext(NavbarContext);
+  const allPokemon = React.useMemo(
+    () => pokemonData.map((pokemon) => pokemon),
+    [pokemonData]
+  );
 
   useEffect(() => {
-    fetch("http://localhost:5001")
+    fetch("http://localhost:5001/pokemon-data")
       .then((response) => response.json())
       .then((pokemon) => {
         setPokemonData(pokemon);
@@ -47,6 +55,12 @@ function Pokemon() {
       >
         {pokemonTitle}Pokemons
       </header>
+      <Button onClick={() => blackBtnClicked()} variant="outlined">
+        Change color to black
+      </Button>
+      <Button onClick={() => blueBtnClicked()} variant="outlined">
+        Change color to blue
+      </Button>
       <div
         style={{
           display: "flex",
@@ -70,7 +84,7 @@ function Pokemon() {
       </div>
 
       <Grid container>
-        {pokemonData.map((pokemon) => {
+        {allPokemon.map((pokemon) => {
           return (
             <Grid
               item

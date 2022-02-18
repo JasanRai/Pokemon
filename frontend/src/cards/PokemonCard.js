@@ -40,6 +40,8 @@ function PokemonCard(props) {
   const img = props.d;
   const [expanded, setExpanded] = useState(false);
 
+  console.log("something");
+
   const maleIncidence = Math.floor(Math.random() * 100);
 
   const handleExpandClick = () => {
@@ -67,20 +69,68 @@ function PokemonCard(props) {
     contentColor = "#73c8f3";
   }
   if (typesArray[0] === "grass") {
-    color = "rgba(35, 190, 77 , 1)";
+    color = "rgba(35,190,77,1)";
     contentColor = "#80f29e";
   }
-  if (typesArray[0] === "flying") {
-    color = "brown";
-    contentColor = "#fb8375";
-  }
+  // if (typesArray[0] === "flying") {
+  //   color = "brown";
+  //   contentColor = "#fb8375";
+  // }
   if (typesArray[0] === "poison") {
-    color = "purple";
-    contentColor = "#fb8375";
+    color = "#bf19fc";
+    contentColor = "#dd83fd";
   }
   if (typesArray[0] === "bug") {
     color = "darkgreen";
     contentColor = "#7bc389";
+  }
+  if (typesArray[0] === "electric") {
+    color = "#bccf2e";
+    contentColor = "#faff77";
+  }
+  if (typesArray[0] === "psychic") {
+    color = "rgba(190,46,179,1)";
+    contentColor = "#ff77ce";
+  }
+  if (typesArray[0] === "rock") {
+    color = "rgba(134,100,26,1)";
+    contentColor = "#e2c588";
+  }
+  if (typesArray[0] === "normal") {
+    color = "#a9a79e";
+    contentColor = "#dad9d5";
+  }
+  if (typesArray[0] === "steel") {
+    color = "#6f7185";
+    contentColor = "#a1a3b1";
+  }
+  if (typesArray[0] === "fairy") {
+    color = "#fc70d4";
+    contentColor = "#fd9ee2";
+  }
+  if (typesArray[0] === "ground") {
+    color = "#c4a76c";
+    contentColor = "#d7c49c";
+  }
+  if (typesArray[0] === "dark") {
+    color = "#4d4d4e";
+    contentColor = "#828283";
+  }
+  if (typesArray[0] === "ice") {
+    color = "#1ab8ff";
+    contentColor = "#93deff";
+  }
+  if (typesArray[0] === "ghost") {
+    color = "#7c5fb9";
+    contentColor = "#af9ed5";
+  }
+  if (typesArray[0] === "fighting") {
+    color = "#8f4d5e";
+    contentColor = "#c3909d";
+  }
+  if (typesArray[0] === "dragon") {
+    color = "#7809f1";
+    contentColor = "#b678fa";
   }
 
   /*    props:
