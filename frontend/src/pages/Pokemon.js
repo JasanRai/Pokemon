@@ -1,6 +1,6 @@
 import { Grid, MenuItem, TextField, Button } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useMemo, useState } from "react";
 import PokemonCard from "../cards/PokemonCard";
 import PokeImage from "../images/firstpokemons.jpg";
 import { NavbarContext } from "../context/NavbarContext";
@@ -20,15 +20,15 @@ const pokemonStyles = makeStyles({
   },
 });
 
+function AllCards(props) {
+  return;
+}
+
 function Pokemon() {
   const classes = pokemonStyles();
   const [pokemonData, setPokemonData] = useState([]);
   const [pokemonTitle, setPokemonTitle] = useState("");
   const { blueBtnClicked, blackBtnClicked } = useContext(NavbarContext);
-  const allPokemon = React.useMemo(
-    () => pokemonData.map((pokemon) => pokemon),
-    [pokemonData]
-  );
 
   useEffect(() => {
     fetch("http://localhost:5001/pokemon-data")
@@ -55,10 +55,10 @@ function Pokemon() {
       >
         {pokemonTitle}Pokemons
       </header>
-      <Button onClick={() => blackBtnClicked()} variant="outlined">
+      <Button onClick={() => blackBtnClicked()} variant='outlined'>
         Change color to black
       </Button>
-      <Button onClick={() => blueBtnClicked()} variant="outlined">
+      <Button onClick={() => blueBtnClicked()} variant='outlined'>
         Change color to blue
       </Button>
       <div
@@ -69,11 +69,11 @@ function Pokemon() {
         }}
       >
         <TextField
-          id="selectType"
+          id='selectType'
           select
-          label="Select"
+          label='Select'
           value={pokemonData.types}
-          helperText="Select Pokemon Type"
+          helperText='Select Pokemon Type'
         >
           {pokemonData.map((option) => (
             <MenuItem key={option.id} value={option.types}>
@@ -82,31 +82,33 @@ function Pokemon() {
           ))}
         </TextField>
       </div>
-
-      <Grid container>
-        {allPokemon.map((pokemon) => {
-          return (
-            <Grid
-              item
-              xs={3}
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "flex-start",
-              }}
-            >
-              <PokemonCard
+      {useMemo(() => {
+        return (
+          <Grid container>
+            {pokemonData.map((pokemon) => (
+              <Grid
                 key={pokemon.id}
-                a={pokemon.id}
-                b={pokemon.name}
-                c={pokemon.types}
-                d={pokemon.img}
-                e={pokemon.abilities}
-              />
-            </Grid>
-          );
-        })}
-      </Grid>
+                item
+                xs={3}
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "flex-start",
+                }}
+              >
+                <PokemonCard
+                  key={pokemon.id}
+                  a={pokemon.id}
+                  b={pokemon.name}
+                  c={pokemon.types}
+                  d={pokemon.img}
+                  e={pokemon.abilities}
+                />
+              </Grid>
+            ))}
+          </Grid>
+        );
+      }, [pokemonData])}
     </div>
   );
 }
